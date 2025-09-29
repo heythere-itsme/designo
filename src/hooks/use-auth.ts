@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { email, z } from "zod";
+import { z } from "zod";
 
 const signInSchema = z.object({
   email: z.string().email("Invalid Email Address"),

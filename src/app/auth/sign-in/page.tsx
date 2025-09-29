@@ -1,11 +1,11 @@
-import { LoginForm } from '@/components/login-form'
+import { SignInForm } from '@/components/login-form'
 import React from 'react'
 
-const page = () => {
+const SignInPage = () => {
   
   return (
-    <LoginForm className='w-100 mx-auto mt-40' />
+    <SignInForm className='w-100 mx-auto mt-40'/>
   )
 }
 
-export default page
+export default SignInPage
