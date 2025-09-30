@@ -8,6 +8,7 @@ const schema = defineSchema({
     userId: v.id("users"),
     nextProjectNumber: v.number(),
   }).index("by_userId", ["userId"]),
+
   project_table: defineTable({
     userId: v.id("users"),
     title: v.string(),
@@ -25,6 +26,7 @@ const schema = defineSchema({
     tags: v.optional(v.array(v.string())),
     projectNumber: v.number(),
   }).index("by_userId", ["userId"]),
+
   credit_ledger: defineTable({
     userId: v.id("users"),
     subscriptionId: v.id("subscriptions"),
@@ -34,9 +36,10 @@ const schema = defineSchema({
     idempodencyKey: v.optional(v.string()),
     meta: v.optional(v.any()),
   })
-  .index('by_subscriptionId', ['subscriptionId'])
-  .index("by_userId", ["userId"])
-  .index('by_idempodencyKey', ['idempodencyKey']),
+    .index("by_subscriptionId", ["subscriptionId"])
+    .index("by_userId", ["userId"])
+    .index("by_idempodencyKey", ["idempodencyKey"]),
+    
   subscriptions_table: defineTable({
     userId: v.id("users"),
     polarCustomerId: v.string(),
@@ -55,9 +58,10 @@ const schema = defineSchema({
     creditGrantPerPeriod: v.number(),
     creditRolloverLimit: v.number(),
     lastGrantCursor: v.optional(v.string()),
-  }).index("by_userId", ["userId"])
-  .index('by_polarSubscriptionId', ['polarsubscriptionId'])
-  .index('by_status', ['status']),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_polarSubscriptionId", ["polarsubscriptionId"])
+    .index("by_status", ["status"]),
 });
 
 export default schema;
