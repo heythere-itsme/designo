@@ -5,6 +5,9 @@ import { ThemeProvider } from "@/theme/provider";
 import { Toaster } from "@/components/ui/sonner";
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
 import { ConvexClientProvider } from "./ConvexClientProvider";
+import ReduxProvider from "@/redux/provider";
+import { ProfileQuery } from "@/convex/query.config";
+import { ConvexUserRaw, normalizeProfile } from "@/types/user";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,11 +24,15 @@ export const metadata: Metadata = {
   description: "AI Powered sketch to design tool",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const rawProfile = await ProfileQuery();
+  const profile = normalizeProfile(rawProfile._valueJSON as unknown as ConvexUserRaw | null)
+
   return (
     <ConvexAuthNextjsServerProvider>
     <html lang="en">
@@ -38,8 +45,12 @@ export default function RootLayout({
         enableSystem
         disableTransitionOnChange
       >
-        <ConvexClientProvider>{children}</ConvexClientProvider>
+        <ConvexClientProvider>
+          <ReduxProvider preloadedState={{user: profile}}>
+          {children}
         <Toaster />
+          </ReduxProvider>
+          </ConvexClientProvider>
       </ThemeProvider>
       </body>
     </html>
