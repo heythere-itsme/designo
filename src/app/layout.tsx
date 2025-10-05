@@ -46,7 +46,7 @@ export default async function RootLayout({
         disableTransitionOnChange
       >
         <ConvexClientProvider>
-          <ReduxProvider preloadedState={{user: profile}}>
+          <ReduxProvider preloadedState={{profile}}>
           {children}
         <Toaster />
           </ReduxProvider>
