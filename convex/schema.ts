@@ -9,7 +9,7 @@ const schema = defineSchema({
     nextProjectNumber: v.number(),
   }).index("by_userId", ["userId"]),
 
-  project_table: defineTable({
+  project: defineTable({
     userId: v.id("users"),
     title: v.string(),
     description: v.optional(v.string()),
